@@ -290,7 +290,10 @@ def device_choice():    #Allows user to select from a predefined set of lists of
         8) WH Firewalls : WH_C_FW1 
         Choice (1-8) : ''')
         choice = int(choice)
-
+        
+        #Firewalls and routers/switches should be kept in separate lists and firewalls should be a choice
+              # that is >= 5 here. Connecting to asa firewalls and switches/routers requires a different
+              # function so it's necessary to differentiate between the two
         if choice == 1:
             devices = HQ_network_devices
             device_string = HQ_network_devices_strings
@@ -314,7 +317,7 @@ def device_choice():    #Allows user to select from a predefined set of lists of
             device_string = MP_firewalls_strings
         elif choice == 8:
             devices = WH_firewalls
-            device_string = WH_firewalls_strings
+            device_string = WH_firewalls_strings          
     if choice >= 5:
         firewall = True
     return (devices, device_string, firewall)
