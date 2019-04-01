@@ -10,5 +10,7 @@ A few variables are hardcoded, such as domain, user container/path, and credenti
 
 Use a CSV file with the headings used in 'NETE2980 - Employee Names.csv' where Group1 is the Organizational Unit, Group2 is a primary group and Group3 is an optional secondary group. Additional AD user information can be entered at line 97, like mail addresses etc.. For example, right now it will put all the new users in Company "Dominion Greenhouses". The format of the login name can be modified at lines 92-94. Currently 91 truncates the SamAccountName to 20 chars, and removes any spaces in first or last name and joins firstname+lastname to create the User Principal Name.
 
+CSV files should be checked for non-ascii characters prior to running ImportUserstoAD, one option is to use findnonascii.py.
+
 # findnonascii.py
 ImportUserstoAD_2.1.ps1 does not like non-ascii characters. This script will find lines with non-ascii characters and print them out with a line number so they can be manually changed before running ImportUserstoAD_v2_1.ps1
