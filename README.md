@@ -3,6 +3,18 @@ A Python script that uses the netmiko library to send bulk backup, show or confi
 
 SSH access to each device is required from the station that is running the script. Structures for network devices are hard-coded from Line 34-117.
 
+To make this work on a different network modify the device and string lists from line 119-135 to match the devices you want to connect to. The strings list is only for printing out the device name to stdout when it's being connected to and commands are being passed. The device lists are a list of the structs defined from 34-117.
+
+The last required change is to the device_choice function from line 277-323. Set the devices variable to one of the device struct lists defined above, as well as the corresponding string to device_string. The if choice >= 5 at line 321 is essential because firewall configuration and show commands require a different function. So make sure lists of firewalls and switches/routers are kept in separate lists and that lists of firewalls are in choice>=5, or change the logic to something better. 
+
+Those are the only modifications that are required. Tested to work on 
+Switch Version 15.0(2)SE10a C2960-LANBASE SW Image C2960-LANBASEK9-M
+Switch Version 12.2(55)SE5 C3560-IPSERVICESK9-M
+Switch Version 16.3.5b CAT3K_CAA-UNIVERSALK9-M
+Router Version 15.1(4)M6 C2800-ADVENTERPRISEK9-M
+Router Version 15.2(4)M3 C2900-UNIVERSALK9-M
+
+
 # ImportUserstoAD_v2_1.ps1
 A Powershell script to add users to Active Directory while creating the necessary groups and OUs. Creation of Groups and OUs requires user confirmation. Creation of users does not require confirmation. This script checks if the user, group or OU exist before creating any of them and continues if they do, or offers to create them if they don't. An existing group or OU elicits no message but a message will be printed for an existing User. Existing Users will not be modified in any way.
 
