@@ -14,6 +14,10 @@ Switch Version 16.3.5b CAT3K_CAA-UNIVERSALK9-M
 Router Version 15.1(4)M6 C2800-ADVENTERPRISEK9-M
 Router Version 15.2(4)M3 C2900-UNIVERSALK9-M
 
+# ImportUsersToAD_v4.0.ps1
+Extensive modifications after collaberation with my server admin made this a far better script than version v2_1 described below. OUs are created in a heirarchical structure, and security groups are created for every new OU. This allows OUs to be placed on departments within locations, such as separate OUs for Accounting at Headquarters and Manufacturing, while still having a security group that applies to all members of Accounting.
+
+
 
 # ImportUserstoAD_v2_1.ps1
 A Powershell script to add users to Active Directory while creating the necessary groups and OUs. Creation of Groups and OUs requires user confirmation. Creation of users does not require confirmation. This script checks if the user, group or OU exist before creating any of them and continues if they do, or offers to create them if they don't. An existing group or OU elicits no message but a message will be printed for an existing User. Existing Users will not be modified in any way.
