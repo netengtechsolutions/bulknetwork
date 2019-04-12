@@ -15,7 +15,7 @@ Router Version 15.1(4)M6 C2800-ADVENTERPRISEK9-M
 Router Version 15.2(4)M3 C2900-UNIVERSALK9-M
 
 # ImportUsersToAD_v4.0.ps1
-Extensive modifications after collaberation with my server admin made this a far better script than version v2_1 described below. OUs are created in a heirarchical structure, and security groups are created for every new OU. This allows OUs to be placed on departments within locations, such as separate OUs for Accounting at Headquarters and Manufacturing, while still having a security group that applies to all members of Accounting.
+Extensive modifications after collaboration with my server admin made this a far better script than version v2_1 described below. OUs are created in a heirarchical structure, and security groups are created for every new OU. This allows OUs to be placed on departments within locations, such as separate OUs for Accounting at Headquarters and Manufacturing, while still having a security group that applies to all members of Accounting.
 
 
 
