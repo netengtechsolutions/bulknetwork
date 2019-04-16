@@ -36,4 +36,5 @@ The Quantitative Risk Analysis WSA and NoCloud represent the simulations that we
 
 The easiest gains were moving services to the cloud that would require a DMZ, like email and the website. We also propose regular end-user training, which results in the green line. The attacker’s dilemma is finding a way in. By eliminating untrusted remote access and training users not to click things we reduced the attack surface significantly. The reduction DMZ vs the Cloud in the simulations is the result of lowering the probabilities of certain compromises by 10-15%, so if the chance of a particular compromise was 20% then we’re proposing that can be reduced from once every 5 years to once every 10 years by using the cloud instead of a DMZ. The difference from the red to green lines is a significant reduction in unprivileged initial entry based on social engineering. This modest reduction also assumes that in nearly all cases unprivileged host access does not escalate to privileged local or domain access, otherwise the cost reduction could potentially be much more. 
 
-# Team_Trogdor_Final_Documentation
+# Team_Trogdor_Final_Capstone_Documentation
+The sum of our efforts.
