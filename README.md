@@ -1,6 +1,6 @@
 # bulknet.py
 A Python script that uses the netmiko library to send bulk backup, show or configuration commands to network devices. 
-Currently accepts -h for basic usage and [-f <logfile>] to duplicate the output to a log file.
+Currently accepts -h for basic usage and [-f logfile_name] to duplicate the output to a log file.
 
 SSH access to each device is required from the station that is running the script. Structures for network devices are hard-coded from Line 34-117.
 
