@@ -8,7 +8,7 @@
 
 """
 
-import sys
+import sys, getopt
 import getopt
 from netmiko import ConnectHandler
 from datetime import datetime
@@ -119,16 +119,16 @@ WH_C_FW1 = {
 #Temporary bunch of lists and strings. The strings are used to print information about which device is being connected to by Netmiko
 HQ_network_devices = [HQ_A_SW1, HQ_A_SW2, HQ_D_SW1, HQ_D_SW2]
 HQ_network_devices_strings = ['HQ_A_SW1', 'HQ_A_SW2', 'HQ_D_SW1', 'HQ_D_SW2']
-MP_network_devices = [MP_A_SW1, MP_A_SW2, MP_D_R1, MP_D_R2]
-MP_network_devices_strings = ['MP_A_SW1', 'MP_A_SW2', 'MP_D_R1', 'MP_D_R2']
+MP_access_devices = [MP_A_SW1, MP_A_SW2]
+MP_access_devices_strings = ['MP_A_SW1', 'MP_A_SW2', 'MP_D_R1', 'MP_D_R2']
 WH_network_devices = [WH_A_SW1]
 WH_network_devices_strings = ['WH_A_SW1']
 all_network_devices = [HQ_A_SW1, HQ_A_SW2, HQ_D_SW1, HQ_D_SW2, MP_A_SW1, MP_A_SW2, MP_D_R1, MP_D_R2, WH_A_SW1]
 all_network_devices_strings = ['HQ_A_SW1', 'HQ_A_SW2', 'HQ_D_SW1', 'HQ_D_SW2', 'MP_A_SW1', 'MP_A_SW2', 'MP_D_R1', 'MP_D_R2', 'WH_A_SW1']
 all_firewalls = [HQ_C_FW1, MP_C_FW1, WH_C_FW1]
 all_firewalls_strings = ['HQ_C_FW1', 'MP_C_FW1', 'WH_C_FW1']
-HQ_firewalls = [HQ_C_FW1]
-HQ_firewalls_strings = ['HQ_C_FW1']
+AllSwitches = [HQ_A_SW1, HQ_A_SW2, HQ_D_SW1, HQ_D_SW2, MP_A_SW1, MP_A_SW2, WH_A_SW1]
+AllSwitches_strings = ['HQ_A_SW1', 'HQ_A_SW2', 'HQ_D_SW1', 'HQ_D_SW2', 'MP_A_SW1', 'MP_A_SW2', 'WH_A_SW1']
 MP_firewalls = [MP_C_FW1]
 MP_firewalls_strings = ['MP_C_FW1']
 WH_firewalls = [WH_C_FW1]
@@ -156,7 +156,7 @@ def configure(devices, devices_strings, cmd):
     total_time = end_time - start_time
     print(f'configure duration : {total_time}')    
 
-def show(devices, devices_strings, cmd):
+def show(devices, devices_strings, cmd, logfile=False):
     start_time = datetime.now()
     i = 0
     for each_device in devices:
@@ -165,9 +165,13 @@ def show(devices, devices_strings, cmd):
         output = net_connect.send_command(cmd)
         #print header
         print(f"\n\n========Device {devices_strings[i]}-{each_device['device_type']} ========")
+        devicestring = f"\n\n========Device {devices_strings[i]}-{each_device['device_type']} ========"
+        cmdstring = f"\tResults of command : {cmd}"
         i = i + 1
         print(output)
-        print("++++++++ End ++++++++")
+        if logfile:
+            print(devicestring, '\n', cmdstring,'\n', output,file=open(logfile,'a'))
+            print("++++++++ End ++++++++")
     end_time = datetime.now()
     total_time = end_time - start_time
     print(f'configure duration : {total_time}')   
@@ -281,11 +285,11 @@ def device_choice():    #Allows user to select from a predefined set of lists of
         choice = input(f'''
         Enter a number for which devices should receive backup/configuration
         1) All HQ Network Devices : HQ_A_SW1, HQ_A_SW2, HQ_D_SW1, HQ_D_SW2
-        2) All MP Network Devices : MP_A_SW1, MP_A_SW1, MP_D_R1, MP_D_R2
+        2) All MP Access-layer Devices : MP_A_SW1, MP_A_SW2
         3) All WH Network Devices : WH_A_SW1
         4) All Network Devices : HQ_A_SW1, HQ_A_SW2, HQ_D_SW1, HQ_D_SW2, MP_A_SW1, MP_A_SW2, MP_D_R1, MP_D_R2, WH_A_SW1
         5) All Firewalls : HQ_C_FW1, MP_C_FW1, WH_C_FW1
-        6) HQ Firewalls : HQ_C_FW1
+        6) AllSwitches : HQ_A_SW1, HQ_A_SW2, HQ_D_SW1, HQ_D_SW2, MP_A_SW1, MP_A_SW2, WH_A_SW1
         7) MP Firewalls : MP_C_FW1
         8) WH Firewalls : WH_C_FW1 
         Choice (1-8) : ''')
@@ -298,8 +302,8 @@ def device_choice():    #Allows user to select from a predefined set of lists of
             devices = HQ_network_devices
             device_string = HQ_network_devices_strings
         elif choice == 2:
-            devices = MP_network_devices
-            device_string = MP_network_devices_strings
+            devices = MP_access_devices
+            device_string = MP_access_devices_strings
         elif choice == 3:
             devices = WH_network_devices
             device_string = WH_network_devices_strings
@@ -310,8 +314,8 @@ def device_choice():    #Allows user to select from a predefined set of lists of
             devices = all_firewalls
             device_string = all_firewalls_strings
         elif choice == 6:
-            devices = HQ_firewalls
-            device_string = HQ_firewalls_strings
+            devices = AllSwitches
+            device_string = AllSwitches_strings
         elif choice == 7:
             choice = MP_firewalls
             device_string = MP_firewalls_strings
@@ -351,7 +355,23 @@ def get_backup_type():  #Allows user to enter backup types from a set of options
             tftp = True
     return (flash,tftp)
 
-def main():
+def main(argv):
+    logfile = ''
+    try:
+        opts, args = getopt.getopt(argv,"hf:",["logfile="])
+    except getopt.GetoptError:
+        print ('bulknet.py [ -f|logfile= <logfile>]')
+        sys.exit(31)
+    for opt, arg in opts:
+        if opt == "-h":
+            print ("bulknet.py [ -o <outputfile>]")
+            sys.exit(42)
+        if opt in ("-f", "--logfile"):
+            logfile = arg
+            print (f"\t\nLogging to {logfile}\n")
+
+    
+    
     backup = backup_or_send()   #Check if user wants to back up devices or send a configuration or read command
     (devices, device_string, firewall) = device_choice()    #Allows user to select targeted devices
 
@@ -374,12 +394,15 @@ def main():
         command = get_command() #allow user to enter command
         if isinstance(command, str):    #make sure user entered a valid string and an error wasn't returned
             if command.startswith('show'):
-                show(devices, device_string, command)
+                if(logfile):
+                    show(devices, device_string, command, logfile)
+                else:
+                    show(devices, device_string, command)
             else:
                 configure(devices, device_string, command)
         else:
             sys.exit(31)
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
     
