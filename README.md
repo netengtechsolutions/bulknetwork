@@ -30,7 +30,7 @@ Use a CSV file with the headings used in 'NETE2980 - Employee Names.csv' where G
 The provided file is in .xlsx format so one option is to convert it using Excel. CSV files should be checked for non-ascii characters prior to running ImportUserstoAD, one option is to use findnonascii.py.
 
 # findnonascii.py
-ImportUserstoAD_2.1.ps1 does not like non-ascii characters. This script will find lines with non-ascii characters and print them out with a line number so they can be manually changed before running ImportUserstoAD_v2_1.ps1
+The ImportUserstoAD scripts do not like non-ascii characters. This script will find lines with non-ascii characters and print them out with a line number so they can be manually changed before running ImportUserstoAD_v2_1.ps1
 
 # QuantitativeRiskAnalysis
 The Quantitative Risk Analysis WSA and NoCloud represent the simulations that we ran to check the return on investment for moving our DMZ to the Cloud. NoCloud represents a local DMZ whereas WSA represents either the addition of a Web Security Appliance or Quarterly end-user training. We assumed that either a WSA or End-User training would have a similiar decrease in probabilities for the security events that we are measuring. 
