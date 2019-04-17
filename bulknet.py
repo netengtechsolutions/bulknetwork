@@ -288,15 +288,15 @@ def device_choice():    #Allows user to select from a predefined set of lists of
         2) All MP Access-layer Devices : MP_A_SW1, MP_A_SW2
         3) All WH Network Devices : WH_A_SW1
         4) All Network Devices : HQ_A_SW1, HQ_A_SW2, HQ_D_SW1, HQ_D_SW2, MP_A_SW1, MP_A_SW2, MP_D_R1, MP_D_R2, WH_A_SW1
-        5) All Firewalls : HQ_C_FW1, MP_C_FW1, WH_C_FW1
-        6) AllSwitches : HQ_A_SW1, HQ_A_SW2, HQ_D_SW1, HQ_D_SW2, MP_A_SW1, MP_A_SW2, WH_A_SW1
+        5) AllSwitches : HQ_A_SW1, HQ_A_SW2, HQ_D_SW1, HQ_D_SW2, MP_A_SW1, MP_A_SW2, WH_A_SW1
+        6) All Firewalls : HQ_C_FW1, MP_C_FW1, WH_C_FW1
         7) MP Firewalls : MP_C_FW1
         8) WH Firewalls : WH_C_FW1 
         Choice (1-8) : ''')
         choice = int(choice)
         
         #Firewalls and routers/switches should be kept in separate lists and firewalls should be a choice
-              # that is >= 5 here. Connecting to asa firewalls and switches/routers requires a different
+              # that is >= 6 here. Connecting to asa firewalls and switches/routers requires a different
               # function so it's necessary to differentiate between the two
         if choice == 1:
             devices = HQ_network_devices
@@ -311,18 +311,18 @@ def device_choice():    #Allows user to select from a predefined set of lists of
             devices = all_network_devices
             device_string = all_network_devices_strings
         elif choice == 5:
-            devices = all_firewalls
-            device_string = all_firewalls_strings
-        elif choice == 6:
             devices = AllSwitches
             device_string = AllSwitches_strings
+        elif choice == 6:
+            devices = all_firewalls
+            device_string = all_firewalls_strings
         elif choice == 7:
             choice = MP_firewalls
             device_string = MP_firewalls_strings
         elif choice == 8:
             devices = WH_firewalls
             device_string = WH_firewalls_strings          
-    if choice >= 5:
+    if choice >= 6:
         firewall = True
     return (devices, device_string, firewall)
 
