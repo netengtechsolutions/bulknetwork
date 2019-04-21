@@ -32,10 +32,12 @@ The provided file is in .xlsx format so one option is to convert it using Excel.
 # findnonascii.py
 The ImportUserstoAD scripts do not like non-ascii characters. This script will find lines with non-ascii characters and print them out with a line number so they can be manually changed before running ImportUserstoAD_v2_1.ps1
 
-# QuantitativeRiskAnalysis
-The Quantitative Risk Analysis WSA and NoCloud represent the simulations that we ran to check the return on investment for moving our DMZ to the Cloud. NoCloud represents a local DMZ whereas WSA represents either the addition of a Web Security Appliance or Quarterly end-user training. We assumed that either a WSA or End-User training would have a similiar decrease in probabilities for the security events that we are measuring. 
+# QuantitativeRiskAnalysis - Cloud_and_usertraining3_0, DMZ_and_usertraining, Cloud_and_IDS
+The Quantitative Risk Analysis Cloud_and_usertraining3_0 and Cloud_and_IDS represent the simulations that we ran to check the return on investment for moving our DMZ to the Cloud. DMZ_and_usertraining represents a local DMZ whereas Cloud_and_usertraining3_0 represents either the addition of a Web Security Appliance or Quarterly end-user training. We assumed that either a WSA or End-User training would have a similiar decrease in probabilities for the security events that we are measuring. 
 
 The easiest gains were moving services to the cloud that would require a DMZ, like email and the website. We also propose regular end-user training, which results in the green line. The attacker’s dilemma is finding a way in. By eliminating untrusted remote access and training users not to click things we reduced the attack surface significantly. The reduction DMZ vs the Cloud in the simulations is the result of lowering the probabilities of certain compromises by 10-15%, so if the chance of a particular compromise was 20% then we’re proposing that can be reduced from once every 5 years to once every 10 years by using the cloud instead of a DMZ. The difference from the red to green lines is a significant reduction in unprivileged initial entry based on social engineering. This modest reduction also assumes that in nearly all cases unprivileged host access does not escalate to privileged local or domain access, otherwise the cost reduction could potentially be much more. 
+
+The reduction in Cloud_and_IDS is the summation of the results from eliminating the DMZ and reducing the upper bounds cost of some compromises. The reduction shows mostly by the reduction in probability that the annual loss will exceed a certain bounds. IDS reduces the cost of compromise by allowing earlier detection and has a noticeable effect when compromises happen.
 
 # Team_Trogdor_Final_Capstone_Documentation
 Our submitted proposal. Updates have since been made to the scripts and quantitative risk assessments. 
