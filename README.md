@@ -41,3 +41,6 @@ The reduction in Cloud_and_IDS is the summation of the results from eliminating 
 
 # Team_Trogdor_Final_Capstone_Documentation
 Our submitted proposal. Updates have since been made to the scripts and quantitative risk assessments. 
+
+# getpinging.ps1
+A small script that we created to continuously ping a list of IPv4 and IPv6 addresses to test distribution router HSRP failover.
