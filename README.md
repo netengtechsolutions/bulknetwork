@@ -1,3 +1,6 @@
+# CPToDrawIO.py
+A python3 script to take an exported Checkpoint config as input and output a csv in the format required by Draw.IO to auto-generate a logical network diagram based on rules in Checkpoint. 
+
 # bulknet.py
 A Python script that uses the netmiko library to send bulk backup, show or configuration commands to network devices. 
 Currently accepts -h for basic usage and [-f logfile_name] to duplicate the output to a log file.
