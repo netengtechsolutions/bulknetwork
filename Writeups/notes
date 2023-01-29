@@ -1,0 +1,10 @@
+BatComputer:
+	NX is disabled
+	Receives and parses stack address from the program
+Blacksmith
+	NX is disabled
+	Canary on stack
+	Has RWX segments
+	Full RELRO
+	PIE enabled
+	
