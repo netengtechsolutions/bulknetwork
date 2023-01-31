@@ -1,5 +1,5 @@
 # WriteUps
-Some Hack the Box writeups
+Some of my Hack the Box writeups
 
 # CPToDrawIO.py
 A python3 script to take an exported Checkpoint config as input and output a csv in the format required by Draw.IO to auto-generate a logical network diagram based on rules in Checkpoint. 
